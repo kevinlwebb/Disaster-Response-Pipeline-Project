@@ -37,7 +37,7 @@ Utilizing and analyzing disaster response data from Figure Eight to build a mode
 3. Run the following command in the app's directory to run your web app.
     `python run.py`
 
-4. Go to http://0.0.0.0:3001/
+4. Go to http://0.0.0.0:33507/
 
 ## Example
 Type in: 
