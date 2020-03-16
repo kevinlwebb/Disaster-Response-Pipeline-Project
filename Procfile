@@ -1,1 +1,1 @@
-web: sh -c 'cd ./app/ && python3 run.py'
+web: sh -c 'python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl && cd ./app/ && python3 run.py'
