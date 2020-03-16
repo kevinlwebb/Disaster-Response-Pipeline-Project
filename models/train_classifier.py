@@ -1,8 +1,9 @@
 import sys
 import pandas as pd
 import numpy as np
-from sqlalchemy import create_engine
+import pickle
 
+from sqlalchemy import create_engine
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.pipeline import Pipeline
@@ -12,7 +13,6 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report, accuracy_score
-from sklearn.externals import joblib
 
 import re
 import nltk
@@ -63,7 +63,7 @@ def build_model():
     #     'vect__ngram_range': ((1, 1), (1, 2))
     #     'vect__max_df': (0.5, 0.75, 1.0),
     #     'vect__max_features': (None, 5000, 10000),
-        'tfidf__use_idf': (True, False),
+    #    'tfidf__use_idf': (True, False),
     #     'clf__n_estimators': [50, 100, 200],
     #     'clf__min_samples_split': [2, 3, 4],
 
@@ -86,7 +86,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
-    joblib.dump(model, model_filepath)
+    pickle.dump(model, open(model_filepath, 'wb'))
 
 
 def main():
