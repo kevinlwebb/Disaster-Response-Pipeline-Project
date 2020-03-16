@@ -3,7 +3,6 @@ import json
 import plotly
 import pandas as pd
 import re
-import pickle
 import nltk
 nltk.download('stopwords')
     
@@ -15,6 +14,7 @@ from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 from sqlalchemy import create_engine
+from joblib import dump, load
 
 
 app = Flask(__name__)
@@ -35,7 +35,7 @@ engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('project', engine)
 
 # load model
-model = pickle.load(open("../models/classifier.pkl", 'rb'))
+model = load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model

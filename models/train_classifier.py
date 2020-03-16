@@ -1,7 +1,8 @@
 import sys
 import pandas as pd
 import numpy as np
-import pickle
+import re
+import nltk
 
 from sqlalchemy import create_engine
 from sklearn.metrics import confusion_matrix
@@ -13,16 +14,15 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.metrics import classification_report, accuracy_score
-
-import re
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
+from joblib import dump, load
 
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+
+from nltk.corpus import stopwords
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 
 
 def load_data(database_filepath):
@@ -58,7 +58,7 @@ def build_model():
     ])
     
     parameters = {
-       'tfidf__smooth_idf':[True, False],
+    #    'tfidf__smooth_idf':[True, False],
     #     'clf__estimator__estimator__C': [1, 2, 5],
     #     'vect__ngram_range': ((1, 1), (1, 2))
     #     'vect__max_df': (0.5, 0.75, 1.0),
@@ -86,7 +86,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
-    pickle.dump(model, open(model_filepath, 'wb'))
+    dump(model, model_filepath) 
 
 
 def main():

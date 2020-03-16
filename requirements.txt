@@ -5,3 +5,4 @@ nltk
 flask
 scikit-learn
 sqlalchemy
+joblib
